@@ -9,6 +9,8 @@ import {
   Platform,
 } from 'react-native'
 
+import PropTypes from 'prop-types'
+
 import _ from 'lodash'
 
 // Default values
@@ -74,6 +76,13 @@ class Block extends React.PureComponent {
 }
 
 class SortableGrid extends React.Component {
+  static propTypes = {
+    renderHeader: PropTypes.func,
+  }
+
+  static defaultProps = {
+    renderHeader: () => null,
+  }
 
   render = () => {
     return (
@@ -81,6 +90,7 @@ class SortableGrid extends React.Component {
         style={ this._getGridStyle() }
         onLayout={this.onGridLayout}
       >
+        { this.props.renderHeader() }
         { this.state.gridLayout &&
         this.items.map( (item, itemIndex) => {
             return (
